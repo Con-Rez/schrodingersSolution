@@ -1,29 +1,62 @@
-import tkinter as tk
-from tkinter import messagebox
 from model.aiModel import get_response
 
-# Create the main window
+import tkinter as tk
+from tkinter import ttk, filedialog
+
+def upload_files():
+    print("Upload Files button clicked")
+
+def grade_selected():
+    print("Grade Selected button clicked")
+
+def grade_all():
+    print("Grade All button clicked")
+
+def export_selected():
+    print("Export Selected button clicked")
+
+def export_all():
+    print("Export All button clicked")
+
 root = tk.Tk()
-root.title("Schrodinger's Solution")
+root.title("Schrodinger’s Solution")
+root.geometry("600x500")
 
-# Create a text box for user input
-text_box = tk.Text(root, height=10, width=50)
-text_box.pack(pady=20)
+# Title Label
+title_label = tk.Label(root, text="Schrodinger’s Solution", font=("Arial", 16, "bold"))
+title_label.pack(pady=10)
 
-# Function to handle the submit button, add response at bottom of the window
-def on_submit():
-    content = text_box.get("1.0", tk.END).strip()
-    if content:
-        response_content = get_response(content)
-        response_label = tk.Label(root, text=response_content, font=("Helvetica", 12))
-        response_label.pack(pady=10)
-    else:
-        messagebox.showwarning("Input Error", "Please enter some text.")
-        return
-   
-# Create a button to submit the input
-submit_button = tk.Button(root, text="Submit", command=on_submit)
-submit_button.pack(pady=20)
+# Upload Button
+upload_btn = tk.Button(root, text="Upload Files", command=upload_files)
+upload_btn.pack(pady=5)
 
-# Run the application
+# Sorting Options
+sort_frame = tk.Frame(root)
+sort_frame.pack()
+sort_label = tk.Label(sort_frame, text="Sort by: ")
+sort_label.pack(side=tk.LEFT)
+sort_options = ttk.Combobox(sort_frame, values=["Name (A-Z)", "ID Number (0-9)"])
+sort_options.pack(side=tk.LEFT)
+sort_options.current(0)
+
+# Student Requirements Textbox
+student_requirements = tk.Text(root, height=4, width=50)
+student_requirements.pack(pady=10)
+
+# Grading Buttons
+grade_selected_btn = tk.Button(root, text="Grade Selected", command=grade_selected, bg="green", fg="white")
+grade_selected_btn.pack(pady=5)
+grade_all_btn = tk.Button(root, text="Grade All", command=grade_all, bg="green", fg="white")
+grade_all_btn.pack(pady=5)
+
+# Output Section
+output_label = tk.Label(root, text="Output")
+output_label.pack(pady=10)
+
+# Export Buttons
+export_selected_btn = tk.Button(root, text="Export Selected", command=export_selected, bg="red", fg="white")
+export_selected_btn.pack(pady=5)
+export_all_btn = tk.Button(root, text="Export All", command=export_all, bg="red", fg="white")
+export_all_btn.pack(pady=5)
+
 root.mainloop()
