@@ -3,9 +3,9 @@ from pydantic import BaseModel
 from model.aiAssistant import ai_assistant
 
 
-SELECTED_MODEL = 'qwen2.5-coder:0.5b'
+# SELECTED_MODEL = 'qwen2.5-coder:0.5b'
 # SELECTED_MODEL = 'qwen2.5-coder:1.5b'
-# SELECTED_MODEL = 'qwen2.5-coder:3b'
+SELECTED_MODEL = 'qwen2.5-coder:3b'
 
 class cleanCodeCheckOutputFormat(BaseModel):
     cleanCodeGradeJustification: str
