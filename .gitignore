@@ -172,3 +172,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+src/model/__pycache__/aiModel.cpython-313.pyc
+src/model/__pycache__/aiModel.cpython-313.pyc

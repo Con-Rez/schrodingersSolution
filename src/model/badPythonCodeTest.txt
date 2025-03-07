@@ -1,0 +1,67 @@
+# Function to add numbers without proper variable naming or structure
+def adder(a, b): a = a + 5
+# Adds five to 'a' and three to 'b'
+b = b + 3
+return a + b
+
+# Another function
+def MultiplyandSubtract(z,w):
+z=z*2
+w=w-2
+return z,w
+
+def Calculate():
+n1=10;n2=20;      n3=30
+# TODO later
+# Where is the sauce?
+return sum([n1,n2,n3])
+
+def nestedFunction():
+ def innerFunc1(): print("Indentation level violation here")
+     print("Broken code")
+
+
+// Print the usage of the program if program was used incorrectly
+void printUsage(const char *progName)
+{
+    fprintf(stderr, "Usage: %s -n priority [-p pid | command [args...]]\n", progName);
+}
+
+
+int parseArguments(int argCount, char *argVector[], int *priority, pid_t *pid)
+{
+    int opt;
+    char *endptr;
+    int hasPid = 0;
+
+    // Iterate through the command line arguments until there are none left
+    while ((opt = getopt(argCount, argVector, "n:p:")) != -1)
+    {
+        switch (opt)
+        {
+            // For priority argument input after n, Check if the priority is valid
+            case 'n':
+                if (parsePriority(optarg, priority) == EXIT_FAILURE)
+                    {return EXIT_FAILURE;}
+                break;
+            // For pid argument input after p, Check if the pid is valid
+            case 'p':
+                if (parsePid(optarg, pid) == EXIT_FAILURE)
+                    {return EXIT_FAILURE;}
+                hasPid = 1;
+                break;
+            // If the user inputs an invalid argument, return
+            default:
+                return EXIT_FAILURE;
+        }
+
+        // Check for mutually exclusive options by checking if process id present, and if option index is less than the argument count
+        if (hasPid && optind < argCount)
+        {
+            fprintf(stderr, "Invalid combination of options: -p and command are mutually exclusive\n");
+            return EXIT_FAILURE;
+        }
+    }
+    // All arguments valid, return
+    return EXIT_SUCCESS;
+}
