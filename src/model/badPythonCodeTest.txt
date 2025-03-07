@@ -1,0 +1,24 @@
+# Function to add numbers without proper variable naming or structure
+def adder(a, b): a = a + 5
+# Adds five to 'a' and three to 'b'
+b = b + 3
+return a + b
+
+# Another function
+def MultiplyandSubtract(z,w):
+z=z*2
+w=w-2
+return z,w
+
+def Calculate():
+n1=10;n2=20;      n3=30
+# TODO later
+# Where is the sauce?
+return sum([n1,n2,n3])
+
+def nestedFunction():
+ def innerFunc1(): print("Indentation level violation here")
+     print("Broken code")
+
+
+# Check that there are no more than three functions used in the code, and that there is a comment with the student's name included on the first line of the code.
