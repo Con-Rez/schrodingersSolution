@@ -135,10 +135,15 @@ def update_progress_bar(expectations_content, num_files, file_paths):
 
 # Function to handle the AI response and text box
 def on_ai_response():
-    # Process the uploaded content
+    #Process the uploaded content
     response_window = tk.Toplevel(root)
-    response_window.title("AI Response")
-    
+    response_window.title("Schrodinger's Solution")
+
+    # Create a text box for user input. Title it "Expectations"
+    frame = tk.Frame(response_window)
+    frame.pack()
+    label = tk.Label(frame, text="AI Response", font=("Helvetica", 14))
+    label.pack()
     # Create a text box to display the response
     response_text = tk.Text(response_window, wrap=tk.WORD)
     response_text.pack(expand=True, fill=tk.BOTH)
