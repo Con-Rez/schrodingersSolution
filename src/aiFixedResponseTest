@@ -31,25 +31,23 @@ def on_submit():
     # Get the content from the text box
     expectations_content = text_box_expectations.get("1.0", tk.END).strip()
     code_content = text_box_code.get("1.0", tk.END).strip()
-    content = "You are being given the following code to analyze: \n"
-    content += code_content
-    content += "\nRespond in the following format\n***Requirements***\nIf there are any expectations provided for the code, please list each of them here and if they were fulfilled or not using a 'true' or 'false'. If they were true, include the line number they appear at:\n"
-    content += expectations_content
-    content += "\n***Code Cleanliness***\nBelow the requirements list, provide a number score out of 10 for how clean the code is, and a short three sentence summary of the code's cleanliness. The cleanliness is derived from if it uses functions to fragment the code, if it is well commented, and if each function used has only one task to perform."
 
-    if content.strip():
-        response_content = get_response(content)
+    if code_content.strip():
+        # Get the response from the aiModel.py
+        response_content = get_response(expectations_content,code_content)
         response_window = tk.Toplevel(root)
         response_window.title("AI Response")
         
+        # Create a text box to display the response
         response_text = tk.Text(response_window, wrap=tk.WORD)
         response_text.pack(expand=True, fill=tk.BOTH)
         
+        # Insert the response into the text box
         response_text.insert(tk.END, response_content)
         
+        # Add a scrollbar to the text box
         scrollbar = tk.Scrollbar(response_window, command=response_text.yview)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        
         response_text.config(yscrollcommand=scrollbar.set)
     else:
         messagebox.showwarning("Input Error", "Please enter some text.")
