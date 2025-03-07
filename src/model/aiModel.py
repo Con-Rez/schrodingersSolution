@@ -1,7 +1,7 @@
 import ollama
 from pydantic import BaseModel
 
-SELECTED_MODEL = 'qwen2.5-coder:1.5b'
+SELECTED_MODEL = 'qwen2.5-coder:0.5b'
 
 class cleanCodeCheckOutputFormat(BaseModel):
     cleanCodeGradeJustification: str
