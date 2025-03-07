@@ -71,8 +71,13 @@ def on_submit():
 # Function to handle the upload file
 def on_file_upload():
     upload_window = tk.Toplevel(root)
-    upload_window.title("Submit Expectations")
+    upload_window.title("Schrodinger's Solution")
 
+    # Create a text box for user input. Title it "Expectations"
+    frame = tk.Frame(upload_window)
+    frame.pack()
+    label = tk.Label(frame, text="Expectations", font=("Helvetica", 14))
+    label.pack()
     upload_text_box = tk.Text(upload_window, height=10, width=50)
     upload_text_box.pack(pady=10)
     
@@ -91,8 +96,13 @@ def on_file_upload():
 # Function to handle the upload folder
 def on_folder_upload():
     upload_window = tk.Toplevel(root)
-    upload_window.title("Submit Expectations")
+    upload_window.title("Schrodinger's Solution")
 
+    # Create a text box for user input. Title it "Expectations"
+    frame = tk.Frame(upload_window)
+    frame.pack()
+    label = tk.Label(frame, text="Expectations", font=("Helvetica", 14))
+    label.pack()
     upload_text_box = tk.Text(upload_window, height=10, width=50)
     upload_text_box.pack(pady=10)
     
