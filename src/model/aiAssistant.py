@@ -2,7 +2,7 @@ import re
 
 TEST_FILE_PATH = 'src/model/badPythonCodeTest.txt'
 
-# Function to read the file to a string FOR TESTING PURPOSES
+# FOR TESTING PURPOSES: Function to read the file to a string 
 def read_file_to_string(TEST_FILE_PATH: str) -> str:
     with open(TEST_FILE_PATH, 'r') as file:
         return file.read()
@@ -11,8 +11,8 @@ def read_file_to_string(TEST_FILE_PATH: str) -> str:
 def check_code_quality(code: str) -> dict:
     issues = {
         "possibly_bad_variable_function_names": [],
-        "method_function_length": [],
-        "comments_per_method": [],
+        "method_function_length": [], #TODO: Implement this
+        "comments_per_method": [], #TODO: Implement this
         "missing_blank_lines_between_structures": [],
         "missing_indentation_formatting": []
     }
@@ -30,9 +30,6 @@ def check_code_quality(code: str) -> dict:
 
         # Check for variable and function names
         check_variable_function_names(stripped_line, i, issues)
-
-        # Check for method/function length and comments
-        check_method_function_length_and_comments(stripped_line, i, issues, method_function_lines, comment_count, inside_method_function)
 
         # Check for blank lines between structures
         check_blank_lines_between_structures(stripped_line, i, issues, blank_line_count, lines)
@@ -81,29 +78,6 @@ def check_variable_function_names(stripped_line, i, issues):
        (re.match(r'^[a-z]+(?:_[a-z]+)*$', match) and len(match.split('_')) < 3)
 )
 
-# Check for method/function length and comments
-def check_method_function_length_and_comments(stripped_line, i, issues, method_function_lines, comment_count, inside_method_function):
-    if stripped_line.startswith(('def ', 'class ')):
-        if inside_method_function:
-            issues["method_function_length"].append((i + 1, len(method_function_lines)))
-            issues["comments_per_method"].append((i + 1, comment_count))
-            method_function_lines.clear()
-            comment_count = 0
-        inside_method_function = True
-
-    if inside_method_function:
-        method_function_lines.append(stripped_line)
-        if stripped_line.startswith('#'):
-            comment_count += 1
-
-    if inside_method_function and stripped_line == '':
-        inside_method_function = False
-        issues["method_function_length"].append((i + 1, len(method_function_lines)))
-        issues["comments_per_method"].append((i + 1, comment_count))
-        method_function_lines.clear()
-        comment_count = 0
-
-
 # Check for blank lines between structures
 def check_blank_lines_between_structures(stripped_line, i, issues, blank_line_count, lines):
     if stripped_line == '':
@@ -137,17 +111,17 @@ def check_indentation_formatting(line, i, issues):
     if indent_level != expected_indent:
         issues["missing_indentation_formatting"].append((i + 1, f"Expected indent level: {expected_indent}, found: {indent_level}"))
 
-def main():
+def ai_assistant(code):
     # Read the file to a string
-    code = read_file_to_string(TEST_FILE_PATH)
+    # code = read_file_to_string(TEST_FILE_PATH)
 
     # Check the code quality
     issues = check_code_quality(code)
 
     # Print the issues found
-    print("Code Quality Issues:")
+    result = "Code Quality Issues:\n"
     for issue_type, issue_list in issues.items():
-        print(f"{issue_type}: {issue_list}")
+        result += f"{issue_type}: {issue_list}\n"
+    return result
 
-if __name__ == "__main__":
-    main()
+    

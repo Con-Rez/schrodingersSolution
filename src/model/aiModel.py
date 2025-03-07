@@ -1,9 +1,11 @@
 import ollama
 from pydantic import BaseModel
+from model.aiAssistant import ai_assistant
 
-# SELECTED_MODEL = 'qwen2.5-coder:0.5b'
+
+SELECTED_MODEL = 'qwen2.5-coder:0.5b'
 # SELECTED_MODEL = 'qwen2.5-coder:1.5b'
-SELECTED_MODEL = 'qwen2.5-coder:3b'
+# SELECTED_MODEL = 'qwen2.5-coder:3b'
 
 class cleanCodeCheckOutputFormat(BaseModel):
     cleanCodeGradeJustification: str
@@ -22,6 +24,7 @@ def get_response(expectations_content,code_content):
         '3. There needs to be at most one comment per method and function describing the functionality of the structure. Any more than one is not allowed.\n' \
         '4. There needs to be at most one blank line between structures. Any more than one is not allowed.\n' \
         '5. The code must be properly indented and formatted. Any code that is not properly indented and formatted is not allowed.\n'
+    detectedErrors = ai_assistant(code_content)
     if expectations_content != '':
         response = ollama.chat(
             model=SELECTED_MODEL,
@@ -33,6 +36,7 @@ def get_response(expectations_content,code_content):
                         f'Given the following code:\n{code_content}\n\n'
                         f'Inspect the code for the following expectations:\n{cleanCodeExpectations}\n\n'
                         f'Additionally, inspect the code for the following additional expectations:\n{expectations_content}\n\n'
+                        f'If there are syntax errors, they will be included here, alongside the line number for each error. Please heavily factor this into your conclusion: :\n{detectedErrors}\n\n'
                         'Do not provide solutions or recommendations to the feedback, nor a list of each of the expectations with an explanation for each. Instead only provide feedback on the code as a single sentence response for each expectation.\n'
                         )
                 }
@@ -48,7 +52,8 @@ def get_response(expectations_content,code_content):
                         'content': (
                         f'Given the following code:\n{code_content}\n\n'
                         f'Inspect the code for the following expectations:\n{cleanCodeExpectations}\n\n'
-                        'Do not provide solutions or recommendations to the feedback, only provide feedback on the code as single sentence responses.\n'
+                        f'If there are syntax errors, they will be included here, alongside the line number for each error. Please heavily factor this into your conclusion: \n{detectedErrors}\n\n'
+                        'Do not provide solutions or recommendations to the feedback, nor a list of each of the expectations with an explanation for each. Instead only provide feedback on the code as single sentence responses.\n'
                         )
                 }
             ]
