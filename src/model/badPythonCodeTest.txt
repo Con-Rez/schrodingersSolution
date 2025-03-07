@@ -19,3 +19,6 @@ return sum([n1,n2,n3])
 def nestedFunction():
  def innerFunc1(): print("Indentation level violation here")
      print("Broken code")
+
+
+# Check that there are no more than three functions used in the code, and that there is a comment with the student's name included on the first line of the code.

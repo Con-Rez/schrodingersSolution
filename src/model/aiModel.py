@@ -10,7 +10,7 @@ SELECTED_MODEL = 'qwen2.5-coder:0.5b'
 class cleanCodeCheckOutputFormat(BaseModel):
     cleanCodeGradeJustification: str
     # cleanCodeGrade: int
-    additionalChecksList: str
+    additionalExpectationsMet: str
 
 class cleanCodeCheckNoAdditionalExpectationsOutputFormat(BaseModel):
     cleanCodeGradeJustification: str
@@ -28,14 +28,14 @@ def get_response(expectations_content,code_content):
     if expectations_content != '':
         response = ollama.chat(
             model=SELECTED_MODEL,
-            format=cleanCodeCheckNoAdditionalExpectationsOutputFormat.model_json_schema(),
+            format=cleanCodeCheckOutputFormat.model_json_schema(),
             messages=[
                 {
                     'role': 'user', 
                     'content': (
                         f'Given the following code:\n{code_content}\n\n'
                         f'Inspect the code for the following expectations:\n{cleanCodeExpectations}\n\n'
-                        f'Additionally, inspect the code for the following additional expectations:\n{expectations_content}\n\n'
+                        f'Additionally, list the following additional expectations and if each one is met:\n{expectations_content}\n\n'
                         f'If there are syntax errors, they will be included here, alongside the line number for each error. Please heavily factor this into your conclusion: :\n{detectedErrors}\n\n'
                         'Do not provide solutions or recommendations to the feedback, nor a list of each of the expectations with an explanation for each. Instead only provide feedback on the code as a single sentence response for each expectation.\n'
                         )
